@@ -15,6 +15,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import logo from '../../public/logo.png'
 import classNames from '../utils/classNames'
+import MyLink from './myLink'
 
 const services = [
   {
@@ -112,7 +113,7 @@ const Header: FunctionComponent = () => {
                       <Popover.Panel className="absolute inset-x-0 top-full z-10 hidden transform bg-white shadow-lg md:block">
                         <div className="mx-auto grid max-w-7xl gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-12 xl:py-16">
                           {services.map((item) => (
-                            <Link key={item.name} href={item.href}>
+                            <Popover.Button as={MyLink} key={item.name} href={item.href}>
                               <a className="-m-3 flex flex-col justify-between rounded-lg p-3 hover:bg-gray-50">
                                 <div className="flex md:h-full lg:flex-col">
                                   <div className="flex-shrink-0">
@@ -139,7 +140,7 @@ const Header: FunctionComponent = () => {
                                   </div>
                                 </div>
                               </a>
-                            </Link>
+                            </Popover.Button>
                           ))}
                         </div>
                         <div className="bg-gray-50">
@@ -234,7 +235,7 @@ const Header: FunctionComponent = () => {
                 <nav>
                   <div className="grid gap-7 sm:grid-cols-2 sm:gap-y-8 sm:gap-x-4">
                     {services.map((item) => (
-                      <Link key={item.name} href={item.href}>
+                      <Popover.Button as={MyLink} key={item.name} href={item.href}>
                         <a className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50">
                           <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-slate-500 text-white sm:h-12 sm:w-12">
                             <item.icon className="h-6 w-6" aria-hidden="true" />
@@ -243,7 +244,7 @@ const Header: FunctionComponent = () => {
                             {item.name}
                           </div>
                         </a>
-                      </Link>
+                      </Popover.Button>
                     ))}
                   </div>
                   <div className="mt-8 text-base">
