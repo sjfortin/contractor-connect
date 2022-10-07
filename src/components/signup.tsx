@@ -1,6 +1,4 @@
 import { FunctionComponent } from 'react'
-import Image from 'next/image'
-import logo from '../../public/logo.png'
 
 const SignUp: FunctionComponent = ({}) => {
   return (
@@ -284,7 +282,7 @@ const SignUp: FunctionComponent = ({}) => {
               Notifications
             </h3>
             <p className="mt-1 text-sm text-gray-500">
-              Decide which communications you'd like to receive and how.
+              Decide which communications you would like to receive and how.
             </p>
           </div>
           <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
