@@ -1,15 +1,29 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
+
 const Login: FunctionComponent = ({}) => {
+  const { data: session } = useSession();
+
+  if (session) {
+    return (
+      <>
+        Signed in as {session.user.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
+    );
+  }
+
   return (
     <>
-      <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 bg-slate-100">
+      <div className="flex min-h-full flex-col justify-center bg-slate-100 py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
             Sign in to your account
           </h2>
+          <button onClick={() => signIn()}>Sign in</button>
         </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        {/* <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form className="space-y-6" action="#" method="POST">
               <div>
@@ -160,10 +174,10 @@ const Login: FunctionComponent = ({}) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
