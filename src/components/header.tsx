@@ -1,7 +1,8 @@
-import { Fragment, FunctionComponent } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { Popover, Transition } from '@headlessui/react'
+import { Fragment, FunctionComponent } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { Popover, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   ChartBarIcon,
@@ -11,47 +12,49 @@ import {
   ShieldCheckIcon,
   Squares2X2Icon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import logo from '../../public/logo.png'
-import classNames from '../utils/classNames'
-import MyLink from './myLink'
+} from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import logo from "../../public/logo.png";
+import classNames from "../utils/classNames";
+import MyLink from "./myLink";
 
 const services = [
   {
-    name: 'Interior',
+    name: "Interior",
     description:
-      'Our network of skilled, experienced handymen in all trades is always ready to assist you with repairs and other work inside your home',
-    href: '/interior',
+      "Our network of skilled, experienced handymen in all trades is always ready to assist you with repairs and other work inside your home",
+    href: "/interior",
     icon: ChartBarIcon,
   },
   {
-    name: 'Exterior',
+    name: "Exterior",
     description:
-      'We help to keep your home’s exterior looking its best and protecting you from weather and other issues',
-    href: '/exterior',
+      "We help to keep your home’s exterior looking its best and protecting you from weather and other issues",
+    href: "/exterior",
     icon: CursorArrowRaysIcon,
   },
   {
-    name: 'Residential Homes',
+    name: "Residential Homes",
     description: "Your customers' data will be safe and secure.",
-    href: '/',
+    href: "/",
     icon: ShieldCheckIcon,
   },
   {
-    name: 'Rental Properties',
+    name: "Rental Properties",
     description: "Connect with third-party tools that you're already using.",
-    href: '/',
+    href: "/",
     icon: Squares2X2Icon,
   },
-]
+];
 
 const callsToAction = [
-  { name: 'Contact Us', href: '/', icon: PhoneIcon },
-  { name: 'View FAQ', href: '/', icon: CheckCircleIcon },
-]
+  { name: "Contact Us", href: "/", icon: PhoneIcon },
+  { name: "View FAQ", href: "/", icon: CheckCircleIcon },
+];
 
 const Header: FunctionComponent = () => {
+  const { data: session } = useSession();
+
   return (
     <Popover className="relative bg-white">
       <div
@@ -87,15 +90,15 @@ const Header: FunctionComponent = () => {
                   <>
                     <Popover.Button
                       className={classNames(
-                        open ? 'text-gray-900' : 'text-gray-500',
-                        'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2',
+                        open ? "text-gray-900" : "text-gray-500",
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
                       )}
                     >
                       <span>Services</span>
                       <ChevronDownIcon
                         className={classNames(
-                          open ? 'text-gray-600' : 'text-gray-400',
-                          'ml-2 h-5 w-5 group-hover:text-gray-500',
+                          open ? "text-gray-600" : "text-gray-400",
+                          "ml-2 h-5 w-5 group-hover:text-gray-500"
                         )}
                         aria-hidden="true"
                       />
@@ -113,7 +116,11 @@ const Header: FunctionComponent = () => {
                       <Popover.Panel className="absolute inset-x-0 top-full z-10 hidden transform bg-white shadow-lg md:block">
                         <div className="mx-auto grid max-w-7xl gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-12 xl:py-16">
                           {services.map((item) => (
-                            <Popover.Button as={MyLink} key={item.name} href={item.href}>
+                            <Popover.Button
+                              as={MyLink}
+                              key={item.name}
+                              href={item.href}
+                            >
                               <a className="-m-3 flex flex-col justify-between rounded-lg p-3 hover:bg-gray-50">
                                 <div className="flex md:h-full lg:flex-col">
                                   <div className="flex-shrink-0">
@@ -178,19 +185,21 @@ const Header: FunctionComponent = () => {
               </Link>
             </Popover.Group>
             <div className="flex items-center md:ml-12">
-              <Link href="/login">
-                <a className="text-base font-medium text-gray-500 hover:text-gray-900">
+              {session ? (
+                <button
+                  className="rounded bg-red-600 py-2 px-4 font-bold text-white hover:bg-red-700"
+                  onClick={() => signOut()}
+                >
+                  Sign out
+                </button>
+              ) : (
+                <button
+                  className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+                  onClick={() => signIn()}
+                >
                   Sign in
-                </a>
-              </Link>
-              <Link
-                href="/sign-up"
-                className="ml-8 inline-flex items-center justify-center rounded-md border border-transparent bg-slate-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-slate-700"
-              >
-                <a className="ml-8 inline-flex items-center justify-center rounded-md border border-transparent bg-slate-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-slate-700">
-                  Sign up
-                </a>
-              </Link>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -235,7 +244,11 @@ const Header: FunctionComponent = () => {
                 <nav>
                   <div className="grid gap-7 sm:grid-cols-2 sm:gap-y-8 sm:gap-x-4">
                     {services.map((item) => (
-                      <Popover.Button as={MyLink} key={item.name} href={item.href}>
+                      <Popover.Button
+                        as={MyLink}
+                        key={item.name}
+                        href={item.href}
+                      >
                         <a className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50">
                           <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-slate-500 text-white sm:h-12 sm:w-12">
                             <item.icon className="h-6 w-6" aria-hidden="true" />
@@ -305,10 +318,13 @@ const Header: FunctionComponent = () => {
                   <a>Sign up</a>
                 </Link>
                 <p className="mt-6 text-center text-base font-medium text-gray-500">
-                  Existing customer?{' '}
-                  <Link href="login">
-                    <a>Sign in</a>
-                  </Link>
+                  Existing customer?{" "}
+                  <button
+                    className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+                    onClick={() => signIn()}
+                  >
+                    Sign in
+                  </button>
                 </p>
               </div>
             </div>
@@ -316,7 +332,7 @@ const Header: FunctionComponent = () => {
         </Popover.Panel>
       </Transition>
     </Popover>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
