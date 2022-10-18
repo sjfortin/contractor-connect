@@ -10,13 +10,13 @@ const features = [
   {
     name: "Easy Scheduling",
     description:
-      "We’ll schedule your work to be done to match your own busy life. Our team of handymen is ready when you are. When you need our services, we’re here to help. We coordinate multiple contractors so you don’t have to. One Call Does It All!",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     icon: GlobeAltIcon,
   },
   {
     name: "Prompt Service",
     description:
-      "Our electricians, plumbers, carpenters, painters and other trade specialists will arrive at your property on time, ready to get started. We know that you don’t have time for delays or disruptions that leave work undone.",
+      "At Morie, you are invited to enjoy expertly customized products delivered to your door. All orders are sent first class through the Australian Post Office (for delivery times and costs, click here).",
     icon: ScaleIcon,
   },
   {
@@ -28,7 +28,7 @@ const features = [
   {
     name: "Expert Craftsmen",
     description:
-      "Every HandyQuick handyman has long experience and knowledge of his trade, and will give you the top quality results you demand. Talented and creative, our team gives you results that enhance your home.",
+      "Morie craftsmen are highly skilled in gaming and have been crafting virtual worlds for over 15 years. Contact us today to see what we can do for you!",
     icon: ChatBubbleBottomCenterTextIcon,
   },
 ];
@@ -46,7 +46,8 @@ const HomePageHero: FunctionComponent = () => {
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto lg:text-left">
             Every homeowner, landlord and property manager faces chores that
-            need to be done around residential properties.</p>
+            need to be done around residential properties.
+          </p>
         </div>
 
         <div className="mt-10">
