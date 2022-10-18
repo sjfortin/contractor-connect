@@ -186,19 +186,23 @@ const Header: FunctionComponent = () => {
             </Popover.Group>
             <div className="flex items-center md:ml-12">
               {session ? (
-                <button
-                  className="rounded bg-red-600 py-2 px-4 font-bold text-white hover:bg-red-700"
-                  onClick={() => signOut()}
-                >
-                  Sign out
-                </button>
+                <>
+                  <div className="mr-2 font-bold text-gray-500">
+                    Hi, {session?.user?.name}
+                  </div>
+                  <button
+                    className="rounded py-2 px-4 text-sm text-gray-400 hover:text-gray-500"
+                    onClick={() => signOut()}
+                  >
+                    Sign out
+                  </button>
+                </>
               ) : (
-                <button
-                  className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-                  onClick={() => signIn()}
-                >
-                  Sign in
-                </button>
+                <Link href="/login">
+                  <a className="text-base font-medium text-gray-500 hover:text-gray-900">
+                    Sign in
+                  </a>
+                </Link>
               )}
             </div>
           </div>
@@ -319,12 +323,11 @@ const Header: FunctionComponent = () => {
                 </Link>
                 <p className="mt-6 text-center text-base font-medium text-gray-500">
                   Existing customer?{" "}
-                  <button
-                    className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-                    onClick={() => signIn()}
-                  >
-                    Sign in
-                  </button>
+                  <Link href="/login">
+                    <a className="text-base font-medium text-gray-500 hover:text-gray-900">
+                      Sign in
+                    </a>
+                  </Link>
                 </p>
               </div>
             </div>

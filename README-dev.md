@@ -1,4 +1,5 @@
 Tools/Software Libraries to be added to this app:
+- content via sanity or strapi
 - https://openreplay.com/
 - https://airbyte.com/
 - https://airbyte.com/
