@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading: 
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -15,22 +15,22 @@ datasource db {
 }
 
 model Example {
-    id String @id @default(cuid())
+    id Int @id @default(autoincrement())
 }
 
 // Necessary for Next auth
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
+    id                Int     @id @default(autoincrement())
+    userId            Int
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
+    refresh_token     String?
+    access_token      String?
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? // @db.Text
+    id_token          String?
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -38,21 +38,26 @@ model Account {
 }
 
 model Session {
-    id           String   @id @default(cuid())
+    id           Int      @id @default(autoincrement())
     sessionToken String   @unique
-    userId       String
+    userId       Int
     expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    User         User     @relation(fields: [userId], references: [id])
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+    id              Int       @id @default(autoincrement())
+    createdAt       DateTime  @default(now())
+    updatedAt       DateTime  @updatedAt
+    firstName       String?
+    lastName        String?
+    email           String?   @unique
+    emailVerified   DateTime?
+    image           String?
+    role            String?
+    accounts        Account[]
+    sessions        Session[]
+    projectsCreated Project[]
 }
 
 model VerificationToken {
@@ -61,4 +66,24 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Project {
+    id                Int             @id @default(autoincrement())
+    createdAt         DateTime        @default(now())
+    updatedAt         DateTime        @updatedAt
+    name              String
+    category          ProjectCategory @relation(fields: [projectCategoryId], references: [id])
+    projectCategoryId Int
+    User              User?           @relation(fields: [userId], references: [id])
+    userId            Int?
+}
+
+model ProjectCategory {
+    id          Int       @id @default(autoincrement())
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    name        String
+    description String?
+    projects    Project[]
 }
