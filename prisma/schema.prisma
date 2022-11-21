@@ -69,21 +69,21 @@ model VerificationToken {
 }
 
 model Project {
-    id                Int             @id @default(autoincrement())
-    createdAt         DateTime        @default(now())
-    updatedAt         DateTime        @updatedAt
-    name              String
-    category          ProjectCategory @relation(fields: [projectCategoryId], references: [id])
-    projectCategoryId Int
-    User              User?           @relation(fields: [userId], references: [id])
-    userId            Int?
+    id          Int      @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    projectSlug String   @unique
+    name        String
+    category    String
+    User        User?    @relation(fields: [userId], references: [id])
+    userId      Int?
 }
 
-model ProjectCategory {
-    id          Int       @id @default(autoincrement())
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-    name        String
-    description String?
-    projects    Project[]
-}
+// model ProjectCategory {
+//     id          Int       @id @default(autoincrement())
+//     createdAt   DateTime  @default(now())
+//     updatedAt   DateTime  @updatedAt
+//     name        String
+//     description String?
+//     projects    Project[]
+// }
